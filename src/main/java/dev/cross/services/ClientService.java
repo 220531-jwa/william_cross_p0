@@ -15,4 +15,8 @@ public class ClientService {
 	public List<Client> getAllClients() {
 		return clientDao.getAllClients();
 	}
+	
+	public Client getClientById(int id) {
+		return clientDao.getClientById(id);
+	}
 }

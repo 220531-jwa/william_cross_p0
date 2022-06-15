@@ -20,7 +20,7 @@ public class Main {
 				get(ClientController::getAllClients); //B
 				
 				path("/{id}", () ->{
-					
+					get(ClientController::getClientById);
 				});
 			});
 		});
@@ -31,7 +31,7 @@ public class Main {
 		 * 
 		 * A (x) POST /clients => Creates a new client return a 201 status code
 		 * B (x) GET /clients => gets all clients return 200
-		 * C (-) GET /clients/10 => get client with id of 10 return 404 if no such client exist
+		 * C (x) GET /clients/10 => get client with id of 10 return 404 if no such client exist
 		 * D (-) PUT /clients/12 => updates client with id of 12 return 404 if no such client exist
 		 * E (-) DELETE /clients/15 => deletes client with the id of15 return 404 if no such client exist return 205 if success
 		 * F (-) POST /clients/5/accounts =>creates a new account for client with the id of 5 return a 201 status code

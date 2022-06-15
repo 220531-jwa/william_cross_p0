@@ -51,4 +51,23 @@ public class ClientDAO {
 		}
 		return clients;
 	}
+	
+	public Client getClientById(int id) {
+		String sql = "select * from bankingapp.clients where id = ?";
+		Client c = null;
+		try (Connection conn = cu.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1,  id);;
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				c = new Client(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"));
+			} else {
+				c = null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
+	
 }

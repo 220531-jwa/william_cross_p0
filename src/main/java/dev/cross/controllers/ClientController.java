@@ -14,13 +14,13 @@ public class ClientController {
 	
 	public static void createClient(Context ctx) {
 		Client clientFromRequestBody = ctx.bodyAsClass(Client.class);
-		Client c = clientService.createClient(clientFromRequestBody);
+		Client client = clientService.createClient(clientFromRequestBody);
 		
-		if (c == null) {
-			ctx.status(404);
-		} else {
+		if (client != null) {
 			ctx.status(201);
-			ctx.json(c);
+			ctx.json(client);
+		} else {
+			ctx.status(404);
 		}
 	}
 	
@@ -30,6 +30,17 @@ public class ClientController {
 			ctx.json(clients);
 		} else {
 			ctx.status(404);
+		}
+	}
+	
+	public static void getClientById(Context ctx) {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		try {
+			Client client = clientService.getClientById(id);
+			ctx.status(200);
+			ctx.json(client);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
