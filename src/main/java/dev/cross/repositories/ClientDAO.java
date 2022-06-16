@@ -70,4 +70,38 @@ public class ClientDAO {
 		return c;
 	}
 	
+	public boolean updateClient (Client updatedClient) {
+		String sql = "update bankingapp.clients set (first_name, last_name)" + " = (?, ?) where id = ?";
+		try (Connection conn = cu.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, updatedClient.getFirstName());
+			ps.setString(2, updatedClient.getLastName());
+			ps.setInt(3, updatedClient.getId());
+			if (ps.executeUpdate() == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteClient (int id) {
+		String sql = "delete from bankingapp.clients where id = ?";
+		try (Connection conn = cu.getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			if (ps.executeUpdate() == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 }

@@ -19,4 +19,12 @@ public class ClientService {
 	public Client getClientById(int id) {
 		return clientDao.getClientById(id);
 	}
+	
+	public boolean updateClient(Client c) {
+		return clientDao.updateClient(c);
+	}
+	
+	public boolean deleteClient(int id) {
+		return clientDao.deleteClient(id);
+	}
 }

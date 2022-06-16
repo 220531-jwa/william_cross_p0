@@ -43,4 +43,29 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void updateClient(Context ctx) {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		Client updatedClient = ctx.bodyAsClass(Client.class);
+		updatedClient.setID(id);
+		if (clientService.updateClient(updatedClient)) {
+			ctx.status(200);
+		} else {
+			ctx.status(404);
+		}
+		
+	}
+	
+	public static void deleteClient(Context ctx) {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		try {
+			if (clientService.deleteClient(id)) {
+				ctx.status(205);
+			} else {
+				ctx.status(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
