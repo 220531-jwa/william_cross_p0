@@ -37,11 +37,12 @@ private static ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 		return a;
 	}
 	
-	public List<Account> getAllAccounts() {
+	public List<Account> getAllAccounts(int id) {
 		List<Account> accounts = new ArrayList<>();
-		String sql = "select * from bankingapp.accounts";
+		String sql = "select * from bankingapp.accounts where user_id = ?";
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				accounts.add(new Account(
@@ -58,13 +59,14 @@ private static ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 		return accounts;
 	}
 	
-	public List<Account> getAllAccountsWithParams(int floor, int ceiling) {
+	public List<Account> getAllAccountsWithParams(int id, int floor, int ceiling) {
 		List<Account> accounts = new ArrayList<>();
-		String sql = "select * from bankingapp.accounts where balance >= ? and balance <= ?";
+		String sql = "select * from bankingapp.accounts where user_id = ? balance >= ? and balance <= ?";
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, floor);
-			ps.setInt(2, ceiling);
+			ps.setInt(1, id);
+			ps.setInt(2, floor);
+			ps.setInt(3, ceiling);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				accounts.add(new Account(
