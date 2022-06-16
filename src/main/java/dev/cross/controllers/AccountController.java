@@ -115,7 +115,16 @@ public class AccountController {
 	}
 	
 	public static void transferFunds(Context ctx) {
-		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		int accountNum = Integer.parseInt(ctx.pathParam("accountNum"));
+		int transferDest = Integer.parseInt(ctx.pathParam("transferDest"));
+		String body = ctx.body();
+		String[] split = body.split(":");
+		if (accountService.transfer(id, accountNum, transferDest, Integer.parseInt(split[1]))) {
+			ctx.status(200);
+		} else {
+			ctx.status(422);
+		}
 	}
 	
 }
