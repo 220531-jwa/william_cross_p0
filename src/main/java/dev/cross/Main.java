@@ -20,7 +20,25 @@ public class Main {
 				get(ClientController::getAllClients); //B
 				
 				path("/{id}", () ->{
-					get(ClientController::getClientById);
+					get(ClientController::getClientById); //C
+					//put(ClientController::updateClient); //D
+					//delete(ClientController::deleteClient); //E
+					
+					path("/accounts", () ->{
+						//post(AccountController::createAccount); //F
+						//get(AccountController::getAccounts); //G+H
+						
+						path("/{accountNum}", () ->{
+							//get(AccountController::getAccountByNumber); //I
+							//put(AccountController::updateAccount); //J
+							//delete(AccountController::deleteAccount); //K
+							//patch(AccountController::withdrawOrDepositFromAccount); //L
+							
+							path("/transfer/{transferDest}", () ->{
+								//patch(AccountController::transferFunds); //M
+							});
+						});
+					});
 				});
 			});
 		});
