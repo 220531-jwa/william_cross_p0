@@ -91,7 +91,27 @@ public class AccountController {
 	}
 	
 	public static void withdrawOrDepositFunds(Context ctx) {
-		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		int accountNum = Integer.parseInt(ctx.pathParam("accountNum"));
+		String body = ctx.body();
+		String[] split = body.split(":");
+		if (split[0].equals("withdraw")) {
+			int amount = Integer.parseInt(split[1]);
+			if (accountService.withdraw(id, accountNum, amount)) {
+				ctx.status(200);
+			} else {
+				ctx.status(422);
+			}
+		} else if (split[0].equals("deposit")) {
+			int amount = Integer.parseInt(split[1]);
+			if (accountService.deposit(id, accountNum, amount)) {
+				ctx.status(200);
+			} else {
+				ctx.status(404);
+			}
+		} else {
+			ctx.status(400);
+		}
 	}
 	
 	public static void transferFunds(Context ctx) {
