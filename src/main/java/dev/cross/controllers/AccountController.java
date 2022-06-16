@@ -52,15 +52,42 @@ public class AccountController {
 	}
 	
 	public static void getAccountByNumber(Context ctx) {
-		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		int accountNum = Integer.parseInt(ctx.pathParam("accountNum"));
+		try {
+			Account account = accountService.getAccountById(id, accountNum);
+			ctx.status(200);
+			ctx.json(account);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.status(404);
+		}
 	}
 	
 	public static void updateAccount(Context ctx) {
-		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		int accountNum = Integer.parseInt(ctx.pathParam("accountNum"));
+		Account updatedAccount = ctx.bodyAsClass(Account.class);
+		updatedAccount.setID(accountNum);
+		if (accountService.updateAccount(updatedAccount)) {
+			ctx.status(200);
+		} else {
+			ctx.status(404);
+		}
 	}
 	
 	public static void deleteAccount(Context ctx) {
-		
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		int accountNum = Integer.parseInt(ctx.pathParam("accountNum"));
+		try {
+			if (accountService.deleteAccount(id, accountNum)) {
+				ctx.status(205);
+			} else {
+				ctx.status(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void withdrawOrDepositFunds(Context ctx) {

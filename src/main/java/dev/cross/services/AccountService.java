@@ -32,7 +32,7 @@ public class AccountService {
 		else return false;
 	}
 	
-	public boolean deleteClient(int client, int id) {
+	public boolean deleteAccount(int client, int id) {
 		if (getAccountById(client, id) != null) return accountDao.deleteAccount(id);
 		else return false;
 	}
