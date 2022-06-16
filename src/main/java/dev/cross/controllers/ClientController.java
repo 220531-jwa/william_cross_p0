@@ -41,6 +41,7 @@ public class ClientController {
 			ctx.json(client);
 		} catch (Exception e) {
 			e.printStackTrace();
+			ctx.status(404);
 		}
 	}
 	
