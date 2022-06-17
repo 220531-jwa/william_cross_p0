@@ -34,9 +34,9 @@ public class AccountController {
 		
 		if (params) {
 			int f = 0;
-			int c = Integer.MAX_VALUE;
+			int c = 100000;
 			if (fText != null) f = Integer.parseInt(fText);
-			if (cText == null) c = Integer.parseInt(cText);
+			if (cText != null) c = Integer.parseInt(cText);
 			accounts = accountService.getAllAccountsWithParams(id, f, c);
 		} else {
 			accounts = accountService.getAllAccounts(id);
@@ -96,15 +96,15 @@ public class AccountController {
 		int accountNum = Integer.parseInt(ctx.pathParam("accountNum"));
 		String body = ctx.body();
 		String[] split = body.split(":");
-		if (split[0].equals("withdraw")) {
-			int amount = Integer.parseInt(split[1]);
+		if ((split[0].substring(2,split[0].length() - 1)).equals("withdraw")) {
+			int amount = Integer.parseInt(split[1].substring(0, split[1].length() - 1));
 			if (accountService.withdraw(id, accountNum, amount)) {
 				ctx.status(200);
 			} else {
 				ctx.status(422);
 			}
-		} else if (split[0].equals("deposit")) {
-			int amount = Integer.parseInt(split[1]);
+		} else if ((split[0].substring(2,split[0].length() - 1)).equals("deposit")) {
+			int amount = Integer.parseInt(split[1].substring(0, split[1].length() - 1));
 			if (accountService.deposit(id, accountNum, amount)) {
 				ctx.status(200);
 			} else {
@@ -121,7 +121,7 @@ public class AccountController {
 		int transferDest = Integer.parseInt(ctx.pathParam("transferDest"));
 		String body = ctx.body();
 		String[] split = body.split(":");
-		if (accountService.transfer(id, accountNum, transferDest, Integer.parseInt(split[1]))) {
+		if (accountService.transfer(id, accountNum, transferDest, Integer.parseInt(split[1].substring(0, split[1].length() - 1)))) {
 			ctx.status(200);
 		} else {
 			ctx.status(422);
