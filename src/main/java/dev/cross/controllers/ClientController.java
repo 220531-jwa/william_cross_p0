@@ -3,13 +3,14 @@ package dev.cross.controllers;
 import java.util.List;
 
 import dev.cross.models.Client;
+import dev.cross.repositories.ClientDAO;
 import dev.cross.services.ClientService;
 
 import io.javalin.http.Context;
 
 public class ClientController {
 	
-	private static ClientService clientService = new ClientService();
+	private static ClientService clientService = new ClientService(new ClientDAO());
 	private static List<Client> clients = clientService.getAllClients();
 	
 	public static void createClient(Context ctx) {

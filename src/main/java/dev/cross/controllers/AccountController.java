@@ -4,12 +4,13 @@ import java.util.List;
 
 import dev.cross.models.Account;
 import dev.cross.models.Client;
+import dev.cross.repositories.AccountDAO;
 import dev.cross.services.AccountService;
 import io.javalin.http.Context;
 
 public class AccountController {
 
-	private static AccountService accountService = new AccountService();
+	private static AccountService accountService = new AccountService(new AccountDAO());
 	
 	public static void createAccount(Context ctx) {
 		Account accountFromRequestBody = ctx.bodyAsClass(Account.class);

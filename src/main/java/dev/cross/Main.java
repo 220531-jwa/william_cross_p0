@@ -4,6 +4,7 @@ package dev.cross;
 import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
+import dev.cross.controllers.AccountController;
 import dev.cross.controllers.ClientController;
 
 public class Main {
@@ -25,17 +26,17 @@ public class Main {
 					delete(ClientController::deleteClient); //E
 					
 					path("/accounts", () ->{
-						//post(AccountController::createAccount); //F
-						//get(AccountController::getAccounts); //G+H
+						post(AccountController::createAccount); //F
+						get(AccountController::getAccounts); //G+H
 						
 						path("/{accountNum}", () ->{
-							//get(AccountController::getAccountByNumber); //I
-							//put(AccountController::updateAccount); //J
-							//delete(AccountController::deleteAccount); //K
-							//patch(AccountController::withdrawOrDepositFromAccount); //L
+							get(AccountController::getAccountByNumber); //I
+							put(AccountController::updateAccount); //J
+							delete(AccountController::deleteAccount); //K
+							patch(AccountController::withdrawOrDepositFunds); //L
 							
 							path("/transfer/{transferDest}", () ->{
-								//patch(AccountController::transferFunds); //M
+								patch(AccountController::transferFunds); //M
 							});
 						});
 					});

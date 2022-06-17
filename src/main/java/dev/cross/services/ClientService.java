@@ -6,7 +6,11 @@ import dev.cross.models.Client;
 import dev.cross.repositories.ClientDAO;
 
 public class ClientService {
-	private static ClientDAO clientDao = new ClientDAO();
+	private static ClientDAO clientDao;
+	
+	public ClientService(ClientDAO client) {
+		this.clientDao = client;
+	}
 	
 	public Client createClient(Client c) {
 		return clientDao.createClient(c);

@@ -6,8 +6,11 @@ import dev.cross.models.Account;
 import dev.cross.repositories.AccountDAO;
 
 public class AccountService {
-	private static AccountDAO accountDao = new AccountDAO(); 
-	private static ClientService clientService = new ClientService();
+	private static AccountDAO accountDao; 
+	
+	public AccountService(AccountDAO a) {
+		accountDao = a;
+	}
 	
 	public Account createAccount(Account a) {
 		return accountDao.createAccount(a);
