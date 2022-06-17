@@ -61,7 +61,7 @@ private static ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 	
 	public List<Account> getAllAccountsWithParams(int id, int floor, int ceiling) {
 		List<Account> accounts = new ArrayList<>();
-		String sql = "select * from bankingapp.accounts where user_id = ? balance > ? and balance < ?";
+		String sql = "select * from bankingapp.accounts where user_id = ? and balance > ? and balance < ?";
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
