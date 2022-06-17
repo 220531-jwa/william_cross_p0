@@ -42,6 +42,7 @@ public class AccountService {
 	
 	public boolean withdraw (int client, int id, int amount) {
 		Account a = getAccountById(client, id);
+		if (a == null) return false;
 		int balance = a.getBalance();
 		if (balance < amount) return false;
 		a.setBalance(balance - amount);
@@ -50,6 +51,7 @@ public class AccountService {
 	
 	public boolean deposit (int client, int id, int amount) {
 		Account a = getAccountById(client, id);
+		if (a == null) return false;
 		a.setBalance(a.getBalance() + amount);
 		return accountDao.updateAccount(a);
 	}
@@ -57,6 +59,7 @@ public class AccountService {
 	public boolean transfer(int client, int sendId, int recieveId, int amount) {
 		Account a = getAccountById(client, sendId);
 		Account b = accountDao.getAccountById(recieveId);
+		if (a == null || b == null) return false;
 		int balance = a.getBalance();
 		if (balance < amount) return false;
 		a.setBalance(balance - amount);
